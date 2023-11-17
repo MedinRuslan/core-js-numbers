@@ -50,7 +50,7 @@ function getCircleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  return (value1 + value2) / 2;
+  return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -109,8 +109,15 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (0,1)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  const angleRadians = Math.atan2(y2 - y1, x2 - x1);
-  return angleRadians;
+  const dotProduct = x1 * x2 + y1 * y2;
+  const magnitude1 = Math.sqrt(x1 * x1 + y1 * y1);
+  const magnitude2 = Math.sqrt(x2 * x2 + y2 * y2);
+
+  const cosineTheta = dotProduct / (magnitude1 * magnitude2);
+  const thetaRadians = Math.acos(cosineTheta);
+  const thetaString = `${(thetaRadians / Math.PI).toFixed(2)}π`;
+
+  return thetaString;
 }
 
 /**
@@ -127,8 +134,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-  const value1 = value.toString();
-  return value1[value1.length - 1];
+  return value % 10;
 }
 
 /**
@@ -181,7 +187,7 @@ function getParallelepipedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-  return num - (num % 10 ** pow);
+  return Math.round(num / 10 ** pow) * 10 ** pow;
 }
 
 /**
@@ -207,7 +213,7 @@ function isPrime(n) {
   }
 
   // eslint-disable-next-line no-plusplus
-  for (let i = 2; i < Math.sqrt(n); i++) {
+  for (let i = 2; i <= Math.sqrt(n); i++) {
     if (n % i === 0) {
       return false;
     }
